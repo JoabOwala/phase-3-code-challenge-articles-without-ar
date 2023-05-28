@@ -43,5 +43,25 @@ class Magazine
   def self.all
     @@all
   end
+
+  def self.find_by_name(name)
+    @@all.find { |magazine| magazine.name == name }
+  end
+
+  def self.article_titles
+    Article.all.map { |article| article.title }
+  end
+
+  def self.contributing_authors
+    Article.all.group_by { |article| article.author }.select { |_, articles| articles.length > 2 }.keys
+  end
+
+  def add_contributor(author)
+    @contributors << author
+  end
+
+  def contributors
+    @contributors
+  end
 end
 
